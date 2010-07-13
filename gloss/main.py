@@ -64,7 +64,7 @@ def build_catalog(source_d, x_dir):
     for n, xs in locales.iteritems():
         j.subtask('%s -> %s' % (locale_from_fn(n), n))
         out = yaml.dump(dict((k.encode('utf-8'), v.encode('utf-8')) for k, v in xs.iteritems()), 
-        default_flow_style=False, default_style='"', allow_unicode=True)
+        default_flow_style=False, default_style='|', allow_unicode=True)
         save_file(n, out)
         j.st_okay()
 

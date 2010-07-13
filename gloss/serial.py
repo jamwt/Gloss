@@ -13,7 +13,7 @@ def dict_to_locale(path, d):
             assert T_SEP not in v
             assert P_SEP not in v
             fd.write("%s%s%s%s" % (
-            k, T_SEP, v, P_SEP))
+            P_SEP, k, T_SEP, v))
 
 
     os.rename(t_path, path)

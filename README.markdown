@@ -38,15 +38,28 @@ list of locales to synchronize with the current set of strings:
 
 The file will contain something like this:
 
-    "goodbye": ""
-    "hello": ""
+    ================================================================================
+    goodbye
+    ~~~~~~~~~~~~~~~~
 
-To provide a translation, simply populate the value string on the right of
-the colon, like so:
+    ================================================================================
+    hello
+    ~~~~~~~~~~~~~~~~
+
+
+To provide a translation, simply populate the section below the divider,
+like so:
 
     
-    "goodbye": "cya"
-    "hello": "howdy"
+    ================================================================================
+    goodbye
+    ~~~~~~~~~~~~~~~~
+    cya
+
+    ================================================================================
+    hello
+    ~~~~~~~~~~~~~~~~
+    howdy
 
 
 The gloss library

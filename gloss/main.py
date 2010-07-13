@@ -1,8 +1,8 @@
-from gloss.fs import get_all_py_files, get_x_yaml_files, save_file
+from gloss.fs import get_all_py_files, get_x_txt_files
 from gloss.scan import get_file_trans_strings
 from gloss.output import Task
 from gloss.strutil import locale_from_fn
-import yaml
+from gloss.serial import dict_to_locale, locale_to_dict
 import traceback
 import os
 
@@ -21,14 +21,14 @@ def build_catalog(source_d, x_dir):
             j.st_okay()
     Task.info("Strings found: %s" % len(strings))
 
-    j = Task("Loading locale translations from %s/*.yaml" % x_dir)
+    j = Task("Loading locale translations from %s/*.txt" % x_dir)
     
-    fs = get_x_yaml_files(x_dir)
+    fs = get_x_txt_files(x_dir)
     locales = {}
     for f in fs:
         j.subtask(f)
         try:
-            d = yaml.load(open(f, 'rb').read())
+            d = locale_to_dict(f)
             if d == '' or d == None:
                 d = {}
             assert type(d) is dict
@@ -63,9 +63,7 @@ def build_catalog(source_d, x_dir):
 
     for n, xs in locales.iteritems():
         j.subtask('%s -> %s' % (locale_from_fn(n), n))
-        out = yaml.dump(dict((k.encode('utf-8'), v.encode('utf-8')) for k, v in xs.iteritems()), 
-        default_flow_style=False, default_style='|', allow_unicode=True)
-        save_file(n, out)
+        dict_to_locale(n, xs)
         j.st_okay()
 
     Task.line()

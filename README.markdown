@@ -9,7 +9,7 @@ How it works
 
 Gloss walks a Python project tree, scanning every .py file for instances
 of `_("String here")`.  It builds a set of all strings inside this function
-call and writes them out to a series of YAML files, one for each locale.
+call and writes them out to a series of text files, one for each locale.
 
 At runtime, the `_` function is imported from gloss, and the translations
 can be used from the currently loaded catalog.
@@ -26,14 +26,14 @@ The `gloss` command line tool
     
  * `project_dir` is the base of your project tree, containing all the .py files that
    contain `_(..)` calls
- * `translations_dir` is a directory that contains a set of <locale>.yaml files.  Each
+ * `translations_dir` is a directory that contains a set of <locale>.txt files.  Each
    file is a dictionary of mappings between the string passed to `_(..)` and the
    locale-specific translation of that string
 
-To initialize a new locale, create an empty .yaml file; it will be included in the
+To initialize a new locale, create an empty .txt file; it will be included in the
 list of locales to synchronize with the current set of strings:
 
-    $ touch i18n/en_US.yaml
+    $ touch i18n/en_US.txt
     $ gloss src i18n
 
 The file will contain something like this:
@@ -55,7 +55,7 @@ The gloss library
 The gloss library contains 3 functions to integrate translations into your
 python program:
 
- * load_gloss_catalog(dir, default_locale="en_US") -- Load all locale YAML files 
+ * load_gloss_catalog(dir, default_locale="en_US") -- Load all locale files 
    out of `dir` for translations in the current application.  This function must
    be called before any other gloss functions.
  * _(string) -- Translate the given string using current catalog rules (see below)

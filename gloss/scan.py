@@ -20,7 +20,7 @@ def walk_for_trans(level):
 
 def find_string(level):
     if level[:1] == [token.STRING]:
-        return eval(level[1]).decode('utf-8')
+        return eval(level[1]).decode('utf-8').strip()
 
     for l in level:
         if type(l) is list:

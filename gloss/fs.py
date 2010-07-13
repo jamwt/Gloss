@@ -1,5 +1,4 @@
 import os
-import yaml
 
 def get_all_py_files(d):
     for dname, sd, fs in os.walk(d):
@@ -8,13 +7,8 @@ def get_all_py_files(d):
                 yield os.path.join(dname, f)
 
 
-def get_x_yaml_files(d):
+def get_x_txt_files(d):
     for f in os.listdir(d):
         full = os.path.join(d, f)
-        if os.path.isfile(full) and f.endswith('.yaml'):
+        if os.path.isfile(full) and f.endswith('.txt'):
             yield full
-
-def save_file(fn, contents):
-    t_fn = fn + '.tmp'
-    open(t_fn, 'wb').write(contents)
-    os.rename(t_fn, fn)

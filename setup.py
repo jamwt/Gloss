@@ -14,6 +14,5 @@ gloss=gloss.main:cli
 '''
           },
     install_requires=[
-        "pyyaml",
     ],
 )

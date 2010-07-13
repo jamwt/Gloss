@@ -1,6 +1,6 @@
-from gloss.fs import get_x_yaml_files
+from gloss.fs import get_x_txt_files
 from gloss.strutil import locale_from_fn
-import yaml
+from gloss.serial import locale_to_dict
 from thread import get_ident
 from contextlib import contextmanager
 from collections import defaultdict
@@ -13,9 +13,9 @@ def load_gloss_catalog(d, def_locale='en_US'):
     global default_locale 
     global current_catalog
     current_catalog = defaultdict(dict)
-    for f in get_x_yaml_files(d):
+    for f in get_x_txt_files(d):
         locale_n = locale_from_fn(f)
-        d = yaml.load(open(f, 'rb').read())
+        d = locale_to_dict(f)
         if type(d) is dict:
             current_catalog[locale_n] = d
     default_locale = current_catalog[def_locale]

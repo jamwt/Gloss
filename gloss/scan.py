@@ -6,7 +6,7 @@ import sys
 def get_file_trans_strings(file_path):
     src = open(file_path, 'rb').read()
     tree = parser.st2list(parser.suite(src))
-    return list(walk_for_trans(tree))
+    return [x for x in walk_for_trans(tree) if x]
 
 def walk_for_trans(level):
     if len(level) == 3 and \

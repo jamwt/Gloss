@@ -22,7 +22,7 @@ def build_catalog(source_d, x_dir):
     Task.info("Strings found: %s" % len(strings))
 
     j = Task("Loading locale translations from %s/*.txt" % x_dir)
-    
+
     fs = get_x_txt_files(x_dir)
     locales = {}
     for f in fs:
@@ -37,7 +37,7 @@ def build_catalog(source_d, x_dir):
         else:
             j.st_okay()
             locales[f] = d
-            
+
     Task.line()
     j = Task("Merging translation strings")
 
@@ -78,6 +78,6 @@ def cli():
         sys.stderr.write("error: exactly two arguments are required\nusage: gloss source_dir catalog_dir\n")
         raise SystemExit(1)
     build_catalog(*args)
-    
+
 if __name__ == '__main__':
     build_catalog('.', 'trans')

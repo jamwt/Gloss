@@ -49,3 +49,9 @@ def lang(l):
     thread_contexts[tid].append(l)
     yield
     thread_contexts[tid].pop()
+
+def get_catalog(locale=None):
+    if locale:
+        return current_catalog[locale]
+    else:
+        return current_catalog

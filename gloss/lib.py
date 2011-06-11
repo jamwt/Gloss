@@ -47,8 +47,10 @@ def lang(l):
     assert current_catalog, "No catalog loaded; use load() first"
     tid = get_thread_id()
     thread_contexts[tid].append(l)
-    yield
-    thread_contexts[tid].pop()
+    try:
+        yield
+    finally:
+        thread_contexts[tid].pop()
 
 def get_catalog(locale=None):
     if locale:

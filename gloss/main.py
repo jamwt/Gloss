@@ -6,7 +6,7 @@ from gloss.serial import dict_to_locale, locale_to_dict
 import traceback
 import os
 
-def build_catalog(source_d, x_dir):
+def build_catalog(source_d, x_dir, remove_stale=False):
 
     j = Task("Scanning .py files for translation strings")
     fs = get_all_py_files(source_d)
@@ -58,6 +58,11 @@ def build_catalog(source_d, x_dir):
         j.st_okay()
         j.info('         new=%s, stale=%s, missing=%s' % (new, s_len - have, new + have - are_set), clear=False)
 
+        if remove_stale:
+            for s in xs.keys():
+                if s not in strings:
+                    del xs[s]
+
     Task.line()
     j = Task("Saving updated translation catalogs")
 
@@ -74,10 +79,12 @@ def cli():
     # --eventually.. get optparse involved
     import sys
     args = sys.argv[1:]
-    if len(args) != 2:
-        sys.stderr.write("error: exactly two arguments are required\nusage: gloss source_dir catalog_dir\n")
+    if len(args) < 2 or len(args) > 3 or \
+           len(args) == 3 and args[2] != '--remove-stale':
+        sys.stderr.write("error: at least two arguments are required\nusage: gloss source_dir catalog_dir [--remove-stale]\n")
         raise SystemExit(1)
-    build_catalog(*args)
+
+    build_catalog(args[0], args[1], len(args) == 3)
 
 if __name__ == '__main__':
     build_catalog('.', 'trans')
